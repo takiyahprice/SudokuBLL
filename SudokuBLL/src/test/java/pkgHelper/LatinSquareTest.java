@@ -1,167 +1,175 @@
 package pkgHelper;
 
+import pkgEnum.ePuzzleViolation;
+
 import static org.junit.Assert.*;
-import java.util.Arrays;
+
+import java.util.*;
+
 
 import org.junit.Test;
 
 public class LatinSquareTest {
 
 	@Test
-	public void hasDuplicates_test1() {
-		
-		int[] arr = {1,2,3,4,5};
-		
-		LatinSquare lq = new LatinSquare();
-	
-		assertFalse(lq.hasDuplicates(arr));
-	}
-	@Test
-	public void hasDuplicates_test2() {
-		
-		int[] arr = {1,1,3,4,5};
-		
-		LatinSquare lq = new LatinSquare();
-	
-		assertTrue(lq.hasDuplicates(arr));
-	}
-	@Test
-	public void hasDuplicates_test3() {
-		
-		int[] arr = {1,2,3,4,1};
-		
-		LatinSquare lq = new LatinSquare();
-	
-		assertTrue(lq.hasDuplicates(arr));
-	}
-	@Test
-	public void hasDuplicates_test4() {
-		
-		int[] arr = null;
-		
-		LatinSquare lq = new LatinSquare();
-	
-		assertFalse(lq.hasDuplicates(arr));
+	public void hasDuplicates_Test1() {
+
+		LatinSquare LS = new LatinSquare();
+		int[] arr = { 1, 3, 5, 2, 4 };
+
+		boolean bHasDuplicates = LS.hasDuplicates(arr);
+
+		assertEquals(bHasDuplicates, false);
+
 	}
 
 	@Test
-	public void doesElementExist_test1() {
-		int[] arr = {1,2,3,4,5};
+	public void hasDuplicates_Test2() {
+
+		LatinSquare LS = new LatinSquare();
+		int[] arr = { 1, 3, 5, 2, 3 };
+
+		boolean bHasDuplicates = LS.hasDuplicates(arr);
+
+		assertEquals(bHasDuplicates, true);
+
+	}
+
+	@Test
+	public void doesElementExist_Test1() {
+		LatinSquare LS = new LatinSquare();
+		int[] arr = { 1, 3, 5, 2, 4 };
 		int iValue = 3;
-		
-		LatinSquare lq = new LatinSquare();
-		
-		assertTrue(lq.doesElementExist(arr, iValue));
+		boolean bdoesElementExist = LS.doesElementExist(arr, iValue);
+
+		assertEquals(bdoesElementExist, true);
 	}
+
 	@Test
-	public void doesElementExist_test2() {
-		int[] arr = {1,2,3,4,5};
-		int iValue = 7;
-		
-		LatinSquare lq = new LatinSquare();
-		
-		assertFalse(lq.doesElementExist(arr, iValue));
+	public void doesElementExist_Test2() {
+		LatinSquare LS = new LatinSquare();
+		int[] arr = { 1, 3, 5, 2, 4 };
+		int iValue = 99;
+		boolean bdoesElementExist = LS.doesElementExist(arr, iValue);
+
+		assertEquals(bdoesElementExist, false);
 	}
+
 	@Test
-	public void doesElementExist_test3() {
-		int[] arr = null;
-		int iValue = 1;
-		
-		LatinSquare lq = new LatinSquare();
-		
-		assertFalse(lq.doesElementExist(arr, iValue));
+	public void hasAllValues_Test1() {
+		LatinSquare LS = new LatinSquare();
+		int[] arr1 = { 1, 2, 3 };
+		int[] arr2 = { 3, 2, 1 };
+
+		boolean bhasAllValues = LS.hasAllValues(arr1, arr2);
+
+		assertEquals(bhasAllValues, true);
+
 	}
+
 	@Test
-	public void hasAllValues_test1() {
-		int[] arr1 = {1,2,3,4,5};
-		int[] arr2 = {1,3,5};
-		
-		LatinSquare lq = new LatinSquare();
-		
-		assertTrue(lq.hasAllValues(arr1, arr2));
+	public void hasAllValues_Test2() {
+		LatinSquare LS = new LatinSquare();
+		int[] arr1 = { 1, 2, 3 };
+		int[] arr2 = { 3, 2, 99 };
+
+		boolean bhasAllValues = LS.hasAllValues(arr1, arr2);
+
+		assertEquals(bhasAllValues, false);
+
 	}
+
 	@Test
-	public void hasAllValues_test2() {
-		int[] arr1 = {1,2,3,4,5};
-		int[] arr2 = {3,8,1,2,3,4};
+	public void getColumn_Test1() {
 		
-		LatinSquare lq = new LatinSquare();
+		int[][] MySquare = { { 1, 2, 3 }, { 3, 1, 2 }, { 2, 3, 1 } };
+
+		LatinSquare LS = new LatinSquare(MySquare);
+		int [] ExpectedCol = {2,1,3};
+		int [] Col = LS.getColumn(1);
 		
-		assertFalse(lq.hasAllValues(arr1, arr2));
+		assertTrue(Arrays.equals(ExpectedCol, Col));
+		System.out.println(Arrays.toString(Col));
 	}
-	@Test
-	public void hasAllValues_test3() {
-		int[] arr1 = null;
-		int[] arr2 = {1,3,5};
-		
-		LatinSquare lq = new LatinSquare();
-		
-		assertFalse(lq.hasAllValues(arr1, arr2));
-	}
-	@Test
-	public void getRow_test1() {
-		int[][] puzzle = {{0,1,2,3},{1,2,3,4},{3,4,1,2},{4,1,3,2}};
-		LatinSquare lq = new LatinSquare(puzzle);
-		int[] test_row = {3,4,1,2};
-		
-		assertTrue(Arrays.equals(lq.getRow(2),test_row));	
-	}
-	@Test
-	public void getRow_test2() {
-		int[][] puzzle = {{0,1,2,3},{1,2,3,4},{3,4,1,2},{4,1,3,2}};
-		LatinSquare lq = new LatinSquare(puzzle);
-		int[] test_row = {3,4,1,2};
-		
-		assertFalse(Arrays.equals(lq.getRow(0),test_row));
-	}
-	@Test
-	public void getColumn_test1() {
-		int[][] puzzle = {{0,1,2,3},{1,2,3,4},{3,4,1,2},{4,1,3,2}};
-		LatinSquare lq = new LatinSquare(puzzle);
-		int[] test_column = {3,4,2,2};
 	
-	assertTrue(Arrays.equals(lq.getColumn(3),test_column));
-	}
 	@Test
-	public void getColumn_test2() {
-		int[][] puzzle = {{0,1,2,3},{1,2,3,4},{3,4,1,2},{4,1,3,2}};
-		LatinSquare lq = new LatinSquare(puzzle);
-		int[] test_column = {3,4,2,2};
+	public void getRow_Test1() {
+		
+		int[][] MySquare = { { 1, 2, 3 }, { 3, 1, 2 }, { 2, 3, 1 } };
+
+		LatinSquare LS = new LatinSquare(MySquare);
+		int [] ExpectedRow = {3,1,2};
+		int [] Row = LS.getRow(1);
+		
+		assertTrue(Arrays.equals(ExpectedRow, Row));
+		System.out.println(Arrays.toString(Row));
+	}
 	
-	assertFalse(Arrays.equals(lq.getColumn(0),test_column));
-	}
 	@Test
-	public void ContainsZero_test1() {
-		int[][] puzzle = {{0,1,2,3},{1,2,3,4},{3,4,1,2},{4,1,3,2}};
-		LatinSquare lq = new LatinSquare(puzzle);
+	public void isLatinSquare_Test1() {
 		
-		assertTrue(lq.ContainsZero());
-	}
-	@Test
-	public void ContainsZero_test2() {
-		int[][] puzzle = {{1,2,3},{1,3,2},{3,1,2}};
-		LatinSquare lq = new LatinSquare(puzzle);
+		int[][] MySquare = { { 1, 2, 3 }, { 3, 1, 2 }, { 2, 3, 1 } };
+
+		LatinSquare LS = new LatinSquare(MySquare);
 		
-		assertFalse(lq.ContainsZero());
+		assertTrue(LS.isLatinSquare());
 	}
-	@Test
-	public void isLatinSquare_test1() {
-		int[][] puzzle = {{1,2,3},{2,3,1},{3,1,2}};
-		LatinSquare lq = new LatinSquare(puzzle);
-		
-		assertTrue(lq.isLatinSquare());
-	}
-	@Test
-	public void isLatinSquare_test2() {
-		int[][] puzzle = {{1,2,3},{2,3,2},{3,1,2}};
-		LatinSquare lq = new LatinSquare(puzzle);
-		
-		assertFalse(lq.isLatinSquare());
-	}
-	public void isLatinSquare_test3() {
-	int[][] puzzle = {{1,2,3},{2,3,4},{3,1,2}};
-	LatinSquare lq = new LatinSquare(puzzle);
 	
-	assertFalse(lq.isLatinSquare());
+	@Test
+	public void isLatinSquare_Test2() {
+		
+		int[][] MySquare = { { 1, 2, 3 }, { 3, 1, 2 }, { 4, 5, 6 } };
+
+		LatinSquare LS = new LatinSquare(MySquare);
+		
+		assertFalse(LS.isLatinSquare());
+	}
+	
+	@Test
+	public void noArghasDuplicates_Test1() {
+		int[][] MySquare = { { 1, 2, 3 }, { 3, 1, 2 }, { 4, 5, 6 } };
+		LatinSquare LS = new LatinSquare(MySquare);
+		
+		assertFalse(LS.hasDuplicates());
+	}
+	@Test
+	public void noArghasDuplicates_Test2() {
+		int[][] MySquare = { { 1, 2, 3 }, { 3, 1, 2 }, { 1, 5, 6 } };
+		LatinSquare LS = new LatinSquare(MySquare);
+	
+		assertTrue(LS.hasDuplicates());
+	}
+	@Test
+	public void RemoveZeros_Test1() {
+		int[] beforeArr = {0,2,3,0,5,6};
+		int[] afterArr = {2,3,5,6};
+		
+		LatinSquare LS = new LatinSquare();
+		
+		assertTrue(Arrays.equals(LS.RemoveZeros(beforeArr),afterArr));
+	}
+	@Test
+	public void RemoveZeros_Test2() {
+		int[] beforeArr = {1,3,5,6};
+		int[] afterArr = {1,3,5,6};
+		
+		LatinSquare LS = new LatinSquare();
+		
+		assertTrue(Arrays.equals(LS.RemoveZeros(beforeArr),afterArr));
+	}
+	@Test
+	public void ePuzzleViolationTest() {
+		int[][] MySquare = { { 1, 2, 3 }, { 3, 1, 2 }, { 4, 5, 6 } };
+		LatinSquare LS = new LatinSquare(MySquare);
+		PuzzleViolation pv = new PuzzleViolation(ePuzzleViolation.InvalidValue,0);
+		ArrayList<PuzzleViolation> expectedarrlist = new ArrayList<PuzzleViolation>();
+		expectedarrlist.add(pv);
+		LS.AddPuzzleViolation(pv);
+		
+		assertTrue(LS.getPV().equals(expectedarrlist));
+		
+		LS.ClearPuzzleViolation();
+		
+		assertEquals(LS.getPV().size(),0);
 	}
 }
