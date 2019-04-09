@@ -1,18 +1,17 @@
 package pkgHelper;
 
-import pkgEnum.ePuzzleViolation;
-
 import static org.junit.Assert.*;
 
-import java.util.*;
-
+import java.util.Arrays;
 
 import org.junit.Test;
+
+import pkgEnum.ePuzzleViolation;
 
 public class LatinSquareTest {
 
 	@Test
-	public void hasDuplicates_Test1() {
+	public void hasDuplicates_test1() {
 
 		LatinSquare LS = new LatinSquare();
 		int[] arr = { 1, 3, 5, 2, 4 };
@@ -24,7 +23,7 @@ public class LatinSquareTest {
 	}
 
 	@Test
-	public void hasDuplicates_Test2() {
+	public void hasDuplicates_test2() {
 
 		LatinSquare LS = new LatinSquare();
 		int[] arr = { 1, 3, 5, 2, 3 };
@@ -35,6 +34,31 @@ public class LatinSquareTest {
 
 	}
 
+	@Test
+	public void hasDuplicates_test3() {
+
+		LatinSquare LS = new LatinSquare();
+		LS.setbIgnoreZero(true);
+		int[] arr = { 1, 3, 0, 2, 0 };
+
+		boolean bHasDuplicates = LS.hasDuplicates(arr);
+
+		assertEquals(bHasDuplicates, false);
+
+	}
+	
+	@Test
+	public void hasDuplicates_test4() {
+
+		LatinSquare LS = new LatinSquare();
+		LS.setbIgnoreZero(true);
+		int[] arr = { 1, 3, 0, 2, 3 };
+
+		boolean bHasDuplicates = LS.hasDuplicates(arr);
+
+		assertEquals(bHasDuplicates, true);
+
+	}
 	@Test
 	public void doesElementExist_Test1() {
 		LatinSquare LS = new LatinSquare();
@@ -126,50 +150,12 @@ public class LatinSquareTest {
 	}
 	
 	@Test
-	public void noArghasDuplicates_Test1() {
-		int[][] MySquare = { { 1, 2, 3 }, { 3, 1, 2 }, { 4, 5, 6 } };
-		LatinSquare LS = new LatinSquare(MySquare);
-		
-		assertFalse(LS.hasDuplicates());
-	}
-	@Test
-	public void noArghasDuplicates_Test2() {
-		int[][] MySquare = { { 1, 2, 3 }, { 3, 1, 2 }, { 1, 5, 6 } };
-		LatinSquare LS = new LatinSquare(MySquare);
-	
-		assertTrue(LS.hasDuplicates());
-	}
-	@Test
-	public void RemoveZeros_Test1() {
-		int[] beforeArr = {0,2,3,0,5,6};
-		int[] afterArr = {2,3,5,6};
-		
-		LatinSquare LS = new LatinSquare();
-		
-		assertTrue(Arrays.equals(LS.RemoveZeros(beforeArr),afterArr));
-	}
-	@Test
-	public void RemoveZeros_Test2() {
-		int[] beforeArr = {1,3,5,6};
-		int[] afterArr = {1,3,5,6};
-		
-		LatinSquare LS = new LatinSquare();
-		
-		assertTrue(Arrays.equals(LS.RemoveZeros(beforeArr),afterArr));
-	}
-	@Test
-	public void ePuzzleViolationTest() {
-		int[][] MySquare = { { 1, 2, 3 }, { 3, 1, 2 }, { 4, 5, 6 } };
-		LatinSquare LS = new LatinSquare(MySquare);
-		PuzzleViolation pv = new PuzzleViolation(ePuzzleViolation.InvalidValue,0);
-		ArrayList<PuzzleViolation> expectedarrlist = new ArrayList<PuzzleViolation>();
-		expectedarrlist.add(pv);
-		LS.AddPuzzleViolation(pv);
-		
-		assertTrue(LS.getPV().equals(expectedarrlist));
-		
-		LS.ClearPuzzleViolation();
-		
-		assertEquals(LS.getPV().size(),0);
+	public void ePuzzleViolationTest()
+	{
+		for (ePuzzleViolation ePV: ePuzzleViolation.values())
+		{
+			System.out.println(ePV);
+		}
 	}
 }
+
